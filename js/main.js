@@ -33,6 +33,12 @@ const modalManager = {
 				this.close();
 			}
 		});
+
+		document.addEventListener('keydown', (event) => {
+			if (event.key === 'Escape' && this.overlay?.classList.contains('is-open')) {
+				this.close();
+			}
+		});
 	}
 };
 
