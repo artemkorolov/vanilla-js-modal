@@ -13,3 +13,17 @@
 .modal-overlay.is-open {
 	display: flex;
 }
+
+.modal {
+	border: 2px solid #333;
+	border-radius: 8px;
+	padding: 20px;
+	background: #fff;
+}
+
+.close-btn {
+	cursor: pointer;
+	border: none;
+	background: none;
+	font-size: 24px;
+}
