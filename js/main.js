@@ -1,39 +1,58 @@
 class ModalManager {
 	constructor() {
-		this.overlay = document.querySelector('#modalOverlay');
-		this.openBtn = document.querySelector('#openModal');
-		this.closeBtn = document.querySelector('#closeModal');
+		this.openButtons = document.querySelectorAll('[data-modal-target]');
+		this.closeButtons = document.querySelectorAll('[data-modal-close]');
 
-		if (this.overlay) {
-			this._bindEvents();
-		}
+		this._bindEvents();
 	}
 
 	_bindEvents() {
-		this.openBtn?.addEventListener('click', () => this.open());
+		this.openButtons?.forEach(button => {
+			button.addEventListener('click', () => {
+				const targetSelector = button.getAttribute('data-modal-target');
+				if (targetSelector) {
+					const modal = document.querySelector(targetSelector);
+					this.open(modal);
+				}
+			});
+		});
 
-		this.closeBtn?.addEventListener('click', () => this.close());
+		this.closeButtons.forEach(button => {
+			button.addEventListener('click', () => {
+				const modal = button.closest('.modal-overlay');
+				this.close(modal);
+			});
+		});
 
-		this.overlay?.addEventListener('click', (event) => {
-			if (event.target === this.overlay) {
-				this.close();
+		document.addEventListener('click', (event) => {
+			if (event.target instanceof Element && event.target.classList.contains('modal-overlay')) {
+				this.close(event.target);
 			}
 		});
 
 		document.addEventListener('keydown', (event) => {
 			if (event.key === 'Escape') {
-				this.close();
+				const activeModal = document.querySelector('.modal-overlay.is-open');
+				if (activeModal) {
+					this.close(activeModal);
+				}
 			}
 		});
 	}
 
-	open() {
-		this.overlay?.classList.add('is-open');
+	open(modal) {
+		if (!modal) return;
+		modal.classList.add('is-open');
+		modal.setAttribute('aria-hidden', 'false');
 		document.body.style.overflow = 'hidden';
+
+		modal.focus();
 	}
 
-	close() {
-		this.overlay?.classList.remove('is-open');
+	close(modal) {
+		if (!modal) return;
+		modal.classList.remove('is-open');
+		modal.setAttribute('aria-hidden', 'true');
 		document.body.style.overflow = '';
 	}
 }
