@@ -1,46 +1,41 @@
-
-const modalManager = {
-
-	open() {
-		this.overlay?.classList.add('is-open');
-		document.body.style.overflow = 'hidden';
-	},
-
-	close() {
-		this.overlay?.classList.remove('is-open');
-		document.body.style.overflow = '';
-	},
-
-	init() {
+class ModalManager {
+	constructor() {
 		this.overlay = document.querySelector('#modalOverlay');
-		if (!this.overlay) {
-			console.warn("Element #modalOverlay not found in the DOM");
-			return;
-		}
-
-		const openBtn = document.querySelector('#openModal');
-		if (openBtn) {
-			openBtn.addEventListener('click', () => this.open());
-		}
-
+		this.openBtn = document.querySelector('#openModal');
 		this.closeBtn = document.querySelector('#closeModal');
-		if (this.closeBtn) {
-			this.closeBtn.addEventListener('click', () => this.close());
-		}
 
-		this.overlay.addEventListener('click', (event) => {
+		if (this.overlay) {
+			this._bindEvents();
+		}
+	}
+
+	_bindEvents() {
+		this.openBtn?.addEventListener('click', () => this.open());
+
+		this.closeBtn?.addEventListener('click', () => this.close());
+
+		this.overlay?.addEventListener('click', (event) => {
 			if (event.target === this.overlay) {
 				this.close();
 			}
 		});
 
 		document.addEventListener('keydown', (event) => {
-			if (event.key === 'Escape' && this.overlay?.classList.contains('is-open')) {
+			if (event.key === 'Escape') {
 				this.close();
 			}
 		});
 	}
-};
 
-modalManager.init();
+	open() {
+		this.overlay?.classList.add('is-open');
+		document.body.style.overflow = 'hidden';
+	}
 
+	close() {
+		this.overlay?.classList.remove('is-open');
+		document.body.style.overflow = '';
+	}
+}
+
+const modal = new ModalManager();
