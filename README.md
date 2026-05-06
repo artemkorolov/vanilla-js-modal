@@ -36,6 +36,8 @@ Unlike basic scripts, this manager doesn't rely on hardcoded IDs. Simply add the
   </div>
 </div>
 
+```
+
 ## 📷 Preview
 
 [Live Demo on GitHub Pages](https://artemkorolov.github.io/vanilla-js-modal/)
