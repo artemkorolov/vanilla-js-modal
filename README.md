@@ -1,26 +1,40 @@
 # Vanilla JS Modal
 
-Simple, clean, and reusable modal window logic built with Vanilla JavaScript.
+A lightweight, scalable, and fully accessible modal window built with **OOP** principles.
 
 ## 🔗 Features
 
-* **Smart Toggling:** Open/close logic with smooth CSS transitions.
-* **UX Friendly:** Close by clicking on overlay or pressing the **Escape** key.
-* **Body Scroll Lock:** Background scrolling is disabled when modal is open.
-* **Safe Code:** Built-in checks and Optional Chaining to ensure DOM stability.
+* **Class-Based Architecture:** Encapsulated logic using ES6 Classes for clean and maintainable code.
+* **Universal Triggers:** Uses `data-attributes` to handle multiple modals with a single script instance.
+* **Accessibility:** Full ARIA support (`aria-hidden` management) and keyboard navigation (Escape key).
+* **UX Focused:** Background scroll locking and overlay click-to-close functionality.
+
 
 ## 🛠 Tech Stack
 
-* **HTML5**
-* **CSS3** 
+* **HTML5** 
+* **CSS3**  
 * **JavaScript**
 
-## 💡 Usage
+## 💡 How It Works (Usage)
 
-To use this in your project, ensure your HTML elements have IDs matching:
-* `#modalOverlay` — for the background.
-* `#openModal` — for the button that opens the modal.
-* `#closeModal` — for the close button.
+Unlike basic scripts, this manager doesn't rely on hardcoded IDs. Simply add the following attributes to your HTML:
+
+1.  **Trigger Button:** Add `data-modal-target="#yourModalId"`.
+2.  **Close Button:** Add `data-modal-close` to any element inside the modal.
+
+### HTML Structure Example:
+
+```html
+<button data-modal-target="#modalOverlay">Open Modal</button>
+
+<div id="modalOverlay" class="modal-overlay" aria-hidden="true">
+  <div class="modal">
+    <button class="close-btn" data-modal-close>&times;</button>
+    <h2>Hello!</h2>
+    <p>This is a professional, reusable modal window.</p>
+  </div>
+</div>
 
 ## 📷 Preview
 
